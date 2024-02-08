@@ -1,10 +1,9 @@
+import { getNode } from './getNode.js';
 
-function bindEvent(node,type,handler){
+function bindEvent(node, type, handler) {
+  if (typeof node === 'string') node = getNode(node);
 
-  if(typeof node === 'string') node = getNode(node);
+  node.addEventListener(type, handler);
 
-  node.addEventListener(type,handler);
-
-  return () => node.removeEventListener(type,handler);
-
+  return () => node.removeEventListener(type, handler);
 }

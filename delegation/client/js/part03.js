@@ -51,19 +51,15 @@ const swiper = new Swiper('.swiper', {
 const split = new SplitText('h3', { type: 'chars' });
 
 swiper
-  .on('slideChange', function () {
-    // console.log('넘어갔다!');
+  .on('slideChangeTransitionStart', function () {
     gsap.to(split.chars, {
       yPercent: 120,
       stagger: 0.05,
     });
-    // document.querySelector('h3').classList.remove('is-active');
   })
   .on('slideChangeTransitionEnd', function () {
-    // console.log('도착했다!');
     gsap.to(split.chars, {
       yPercent: 0,
       stagger: 0.05,
     });
-    // document.querySelector('h3').classList.add('is-active');
   });

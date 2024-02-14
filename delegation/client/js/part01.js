@@ -22,42 +22,31 @@ const data = [
 ];
 
 const navigation = getNode('.navigation');
-const list = getNodes('.navigation li');
 const visualImage = getNode('.visual img');
 
-function handleSlide(e) {
+function handleSlide(e){
+
   e.preventDefault();
 
-  // e.target 조회
-  // console.log(e.target);
-
-  // li만 수집 (closet)
   const target = e.target.closest('li');
-  const list = [...navigation.children];
   const a = e.target.closest('a');
+
+  const list = [...navigation.children];
+
+  if(!target | !a) return;
+
   const index = target.dataset.index;
 
-  // 내가 선택한 li에게 is-active 클래스를 넣어 주기
-  if (!target | !a) return;
+  attr(visualImage,'src',`./assets/part01/${data[index-1].src}`);
+  attr(visualImage,'alt',data[index-1].alt);
 
-  // console.log(a.href);
-  visualImage.setAttribute('src', './assets/part01/${data[index-1].src}');
-  visualImage.setAttribute('alt', data[index - 1].alt);
 
-  console.log(data[index - 1].src);
 
-  list.forEach((li) => {
-    li.classList.remove('is-active');
-  });
+  list.forEach(li => removeClass(li,'is-active'))
 
-  target.classList.add('is-active');
-
-  // 나를 제외한 모든 li에게 is-active 제거
-
-  // 선택한 li의 n 번째를 찾아서 data 배열의 i 번째에 접근
-  // console.log(target.dataset.index);
-  target.classList.add('is-active');
-  // console.log(data[index-1].alt);
+  addClass(target,'is-active');
 }
 
-navigation.addEventListener('click', handleSlide);
+navigation.addEventListener('click',handleSlide);
+
+
